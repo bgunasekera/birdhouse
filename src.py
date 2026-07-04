@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from ultralytics import YOLO
 
 class ObjectDetector:
@@ -87,6 +88,15 @@ class BirdClassifier:
             
         return processed_list
 
+    def convert_results_to_df(self, final_results):
+        """Converts a list of dictionaries into a Pandas DataFrame."""
+        if not final_results:
+            print("Warning: final_results is empty.")
+            return pd.DataFrame()
+
+        df = pd.DataFrame(final_results)
+        return df
+
 
 # --- Execution Example ---
 if __name__ == "__main__":
@@ -94,14 +104,7 @@ if __name__ == "__main__":
     
     detector = ObjectDetector()
     analysis_results = detector.scan_folder(folder_to_scan)
-    
-    print("\n--- Detection Results ---")
-    for result in analysis_results:
-        print(result)
 
     classifier = BirdClassifier()
     final_results = classifier.process_results(analysis_results)
-
-    print("--- Final Filtered Results ---")
-    for final_item in final_results:
-        print(final_item) 
+    final_table = classifier.convert_results_to_df(final_results)
