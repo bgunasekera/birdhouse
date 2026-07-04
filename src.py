@@ -5,7 +5,6 @@ class ObjectDetector:
     def __init__(self, model_name: str = 'yolov8n.pt'):
         """Initializes the YOLO model."""
         self.model = YOLO(model_name)
-        self.target_class = 'bird'
 
     def load_and_predict(self, image_path: str):
         """Runs the YOLO algorithm on a single image path."""
